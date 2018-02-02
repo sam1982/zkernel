@@ -5,6 +5,7 @@ global a_memtest_sub
 global io_load_eflags
 global io_store_eflags
 global load_cr0,store_cr0
+global s_set_ratio
 
 
 section .text
@@ -39,3 +40,8 @@ store_cr0:     ; void store_cr0(int cr0);
         MOV     CR0,EAX
         RET
 
+s_set_ratio:
+        ;mov ax,4F02H
+        ;mov bx,108h ;set 80x60
+        ;int 10H
+        ;hlt

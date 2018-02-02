@@ -2,16 +2,13 @@
 * Copyright (C) 2014  Arjun Sreedharan
 * License: GPL version 2 or higher http://www.gnu.org/licenses/gpl.html
 */
-
-
-char *vidptr = (char*)0xb8000;
-unsigned int current_loc = 0;
-extern void dtoc(int num, char *str);
-char* itoa(int i, char b[]);
-void kprint(const char *str);
+#include "display.h"
+#include "kernel.h"
 
 void kmain(void)
 {
+    //设置分辨率，暂时没弄好
+    set_ratio();
 	const char *str = "my first kernel";
 	/* video memory begins at address 0xb8000 */
 	char *vidptr = (char*)0xb8000;
@@ -21,7 +18,7 @@ void kmain(void)
 
 	/* this loops clears the screen
 	* there are 25 lines each of 80 columns; each element takes 2 bytes */
-	screensize = 80 * 25 * 2;
+	screensize = COLUMNS * LINE * 2;
 	while (j < screensize) {
 		/* blank character */
 		vidptr[j] = ' ';
@@ -34,12 +31,25 @@ void kmain(void)
 
 	/* this loop writes the string to video memory */
     kprint(str);
+    kprintEnter();
     int total;
     total = memoryInt();
     char t[20]; 
     itoa(total,t);
     kprint(t);
 	return;
+}
+
+//换行,因为分辨率不知道咋设置，所以换行也不行
+void kprintEnter(){
+    if (current_loc <=0){
+        return;
+    }
+    if (current_loc < COLUMNS ){
+        current_loc = COLUMNS;
+        return;
+    }
+    current_loc =  current_loc + (current_loc%COLUMNS);
 }
 
 void kprint(const char *str)
