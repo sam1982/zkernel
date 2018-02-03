@@ -6,6 +6,8 @@ global io_load_eflags
 global io_store_eflags
 global load_cr0,store_cr0
 global s_set_ratio
+global k_kernel_mem_end_test
+GLOBAL load_gdtr, load_idtr
 
 
 section .text
@@ -45,3 +47,18 @@ s_set_ratio:
         ;mov bx,108h ;set 80x60
         ;int 10H
         ;hlt
+
+
+
+
+load_gdtr:     ; void load_gdtr(int limit, int addr);
+        MOV     AX,[ESP+4]      ; limit
+        MOV     [ESP+6],AX
+        LGDT    [ESP+6]
+        RET
+
+load_idtr:     ; void load_idtr(int limit, int addr);
+        MOV     AX,[ESP+4]      ; limit
+        MOV     [ESP+6],AX
+        LIDT    [ESP+6]
+        RET

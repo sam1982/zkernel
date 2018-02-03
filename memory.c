@@ -1,6 +1,6 @@
 #include "memory.h"
 
-int memoryInt(){
+unsigned int memory_explore(){
     unsigned int memtotal;
     memtotal = memtest(0x01000000, 0xbfffffff);
     return memtotal;
@@ -92,7 +92,7 @@ unsigned int memman_alloc(struct MEMMAN *man, unsigned int size)
 }
 
 int memman_free(struct MEMMAN *man, unsigned int addr, unsigned int size)
-/释放/
+/* 释放 */
 {
     int i, j;
     /* 为便于归纳内存，将free[]按照addr的顺序排列 */ /* 所以，先决定应该放在哪里 */

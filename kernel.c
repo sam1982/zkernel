@@ -4,6 +4,7 @@
 */
 #include "display.h"
 #include "kernel.h"
+#include "memory.h"
 void memory_write();
 
 void kmain(void)
@@ -33,11 +34,22 @@ void kmain(void)
 	/* this loop writes the string to video memory */
     kprint(str);
     kprintEnter();
-    int total;
-    total = memoryInt();
+    unsigned int memtotal;
+    memtotal = memory_explore();
     char t[20]; 
-    itoa(total,t);
+    itoa(memtotal,t);
+    kprint("total: ");
     kprint(t);
+    kprintEnter();
+    kprintEnter();
+    struct MEMMAN *memman = (struct MEMMAN *) MEMMAN_ADDR;
+    memman_init(memman);
+    memman_free(memman, 0x00001000, 0x0009e000); /* 0x00001000 - 0x0009efff */
+    memman_free(memman, 0x00400000, memtotal - 0x00400000);
+    char free[20];
+    itoa(memman_total(memman) / 1024,free);
+    kprint("free: ");
+    kprint(free);
 	return;
 }
 
@@ -51,6 +63,7 @@ void memory_write(){
     kprint(result_str);
     kprint("test");
 }
+
 //换行,因为分辨率不知道咋设置，所以换行也不行
 void kprintEnter(){
     if (current_loc <=0){
