@@ -4,6 +4,7 @@
 */
 #include "display.h"
 #include "kernel.h"
+void memory_write();
 
 void kmain(void)
 {
@@ -40,6 +41,16 @@ void kmain(void)
 	return;
 }
 
+void memory_write(){
+    unsigned int end = 0x00010031a;
+    unsigned int result;
+    result = kernel_mem_end_test(end);
+    char result_str[20];
+    itoa(result,result_str);
+    kprint("           ");
+    kprint(result_str);
+    kprint("test");
+}
 //换行,因为分辨率不知道咋设置，所以换行也不行
 void kprintEnter(){
     if (current_loc <=0){
