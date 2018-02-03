@@ -11,6 +11,8 @@ void kmain(void)
 {
     //设置分辨率，暂时没弄好
     set_ratio();
+    init_gdt();
+    idt_init();
 	const char *str = "my first kernel";
 	/* video memory begins at address 0xb8000 */
 	char *vidptr = (char*)0xb8000;
@@ -33,6 +35,7 @@ void kmain(void)
 
 	/* this loop writes the string to video memory */
     kprint(str);
+    //kprint_newline();
     kprintEnter();
     unsigned int memtotal;
     memtotal = memory_explore();
@@ -40,8 +43,7 @@ void kmain(void)
     itoa(memtotal,t);
     kprint("total: ");
     kprint(t);
-    kprintEnter();
-    kprintEnter();
+    kprint_newline();
     struct MEMMAN *memman = (struct MEMMAN *) MEMMAN_ADDR;
     memman_init(memman);
     memman_free(memman, 0x00001000, 0x0009e000); /* 0x00001000 - 0x0009efff */
@@ -50,7 +52,10 @@ void kmain(void)
     itoa(memman_total(memman) / 1024,free);
     kprint("free: ");
     kprint(free);
-	return;
+    kb_init();
+
+    while(1);
+	//return;
 }
 
 void memory_write(){
@@ -64,17 +69,6 @@ void memory_write(){
     kprint("test");
 }
 
-//换行,因为分辨率不知道咋设置，所以换行也不行
-void kprintEnter(){
-    if (current_loc <=0){
-        return;
-    }
-    if (current_loc < COLUMNS ){
-        current_loc = COLUMNS;
-        return;
-    }
-    current_loc =  current_loc + (current_loc%COLUMNS);
-}
 
 void kprint(const char *str)
 {
@@ -103,4 +97,23 @@ char* itoa(int i, char b[]){
         i = i/10;
     }while(i);
     return b;
+}
+
+void kprint_newline(void)
+{
+    unsigned int line_size = BYTES_FOR_EACH_ELEMENT * COLUMNS_IN_LINE;
+    current_loc = current_loc + (line_size - current_loc % (line_size));
+}
+
+
+void kprintEnter(){
+    if (current_loc <=0){
+        return;
+    }
+    unsigned int line_size = COLUMNS * 2;
+    if (current_loc < line_size ){
+        current_loc = line_size;
+        return;
+    }
+    current_loc =  current_loc + (line_size -  current_loc%line_size);
 }

@@ -10,7 +10,7 @@ struct GATE_DESCRIPTOR {
     short offset_high;
 };
 
-void init_gdtidt(void);
+void init_gdt(void);
 void set_segmdesc(struct SEGMENT_DESCRIPTOR *sd, unsigned int limit, int base, int ar);
 void set_gatedesc(struct GATE_DESCRIPTOR *gd, int offset, int selector, int ar);
 extern void load_gdtr(int limit, int addr);
@@ -18,7 +18,7 @@ extern void load_idtr(int limit, int addr);
 
 
 
-void init_gdtidt(void)
+void init_gdt(void)
 {
     struct SEGMENT_DESCRIPTOR *gdt = (struct SEGMENT_DESCRIPTOR *) 0x00270000;
     struct GATE_DESCRIPTOR    *idt = (struct GATE_DESCRIPTOR    *) 0x0026f800;
@@ -33,10 +33,12 @@ void init_gdtidt(void)
     load_gdtr(0xffff, 0x00270000);
 
     /* IDTの初期化 */
+    /*
     for (i = 0; i < 256; i++) {
         set_gatedesc(idt + i, 0, 0, 0);
     }
     load_idtr(0x7ff, 0x0026f800);
+    */
 
     return;
 }

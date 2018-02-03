@@ -27,7 +27,7 @@ struct MEMMAN {     /* 内存管理 */
 
 
 void memman_init(struct MEMMAN *man);
-int memoryInt();
+unsigned int memory_explore();
 unsigned int memman_total(struct MEMMAN *man);
 unsigned int memman_alloc(struct MEMMAN *man, unsigned int size);
 int memman_free(struct MEMMAN *man, unsigned int addr, unsigned int size);
