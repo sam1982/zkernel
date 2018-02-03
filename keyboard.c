@@ -3,10 +3,15 @@
 #define KEYBOARD_STATUS_PORT 0x64
 #define ENTER_KEY_CODE 0x1C
 
-extern unsigned char keyboard_map[128];
-extern unsigned int current_loc;
-extern char *vidptr;
 void kb_init(void);
+void keyboard_handler_main(void);
+
+
+extern void kprint_char(const char str);
+extern void kprint(char str);
+extern unsigned char keyboard_map[128];
+extern char read_port(unsigned short port);
+extern void write_port(unsigned short port, unsigned char data);
 
 void keyboard_handler_main(void)
 {
@@ -28,8 +33,10 @@ void keyboard_handler_main(void)
             return;
         }
 
-        vidptr[current_loc++] = keyboard_map[(unsigned char) keycode];
-        vidptr[current_loc++] = 0x07;
+        char key =  keyboard_map[(unsigned char) keycode];
+        kprint_char(key);
+        //vidptr[current_loc++] = keyboard_map[(unsigned char) keycode];
+        //vidptr[current_loc++] = 0x07;
     }
 }
 

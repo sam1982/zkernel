@@ -5,13 +5,18 @@
 #include "display.h"
 #include "kernel.h"
 #include "memory.h"
-void memory_write();
+
+
+extern void load_idt(unsigned long *idt_ptr);
+extern void kb_init(void);
+extern void idt_init(void);
+extern void init_gdt(void);
 
 void kmain(void)
 {
     //设置分辨率，暂时没弄好
     set_ratio();
-    init_gdt();
+    //init_gdt();
     idt_init();
 	const char *str = "my first kernel";
 	/* video memory begins at address 0xb8000 */
@@ -77,6 +82,12 @@ void kprint(const char *str)
         vidptr[current_loc++] = str[i++];
         vidptr[current_loc++] = 0x07;
     }
+}
+
+void kprint_char(const char str)
+{
+        vidptr[current_loc++] = str;
+        vidptr[current_loc++] = 0x07;
 }
 
 char* itoa(int i, char b[]){
