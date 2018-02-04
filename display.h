@@ -7,3 +7,9 @@
 
 void set_ratio();
 extern void s_set_ratio();
+void set_ratio();
+void kprintEnter();
+void kprintCmd();
+void kprint(const char *str);
+void kprint_char(const char str);
+
