@@ -28,6 +28,7 @@ void kprint_newline(void)
 {
     unsigned int line_size = BYTES_FOR_EACH_ELEMENT * COLUMNS_IN_LINE;
     current_loc = current_loc + (line_size - current_loc % (line_size));
+    kprintCmd();
     move_cursor();
 }
 
@@ -42,11 +43,12 @@ void kprintEnter(){
         return;
     }
     current_loc =  current_loc + (line_size -  current_loc%line_size);
+    //kprintCmd();
     move_cursor();
 }
 
 void kprintCmd(){
-    kprint_newline();
+    //kprint_newline();
     kprint(">");
     move_cursor();
 }

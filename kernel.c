@@ -52,7 +52,7 @@ void kmain(void)
     itoa(memtotal,t);
     kprint("total: ");
     kprint(t);
-    kprint_newline();
+    kprintEnter();
     struct MEMMAN *memman = (struct MEMMAN *) MEMMAN_ADDR;
     memman_init(memman);
     memman_free(memman, 0x00001000, 0x0009e000); /* 0x00001000 - 0x0009efff */
@@ -61,9 +61,8 @@ void kmain(void)
     itoa(memman_total(memman) / 1024,free);
     kprint("free: ");
     kprint(free);
+    kprint_newline();
     kb_init();
-    kprintCmd();
-
     while(1);
 	//return;
 }
