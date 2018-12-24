@@ -40,6 +40,9 @@ void kprint_newline(void)
     current_loc = current_loc + (line_size - current_loc % (line_size));
     kprintCmd();
     kprint_newpage();
+    var char now[10];
+    itoa(current_loc,now);
+    kprint_chars(now);
     move_cursor();
 }
 
@@ -87,3 +90,5 @@ void move_cursor()
     outb(0x3D4, 15);                    // 告诉 VGA 我们要设置光标的低字节
     outb(0x3D5, cursorLocation);        // 发送低 8 位
 }
+
+
