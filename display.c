@@ -48,8 +48,9 @@ void kprint_newpage(void){
     int i =0;
     if (current_loc > COLUMNS*2*5){
         for (i=0;i<screensize-COLUMNS*2;i++){
-            vidptr[i] = vidptr[i+(COLUMNS*2)];
+            vidptr[i] = vidptr[i+160];
         }
+        kprint("page");
     }
 }
 
