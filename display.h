@@ -13,3 +13,4 @@ void kprintCmd();
 void kprint(const char *str);
 void kprint_char(const char str);
 void move_cursor();
+void kprint_newpage(void);
