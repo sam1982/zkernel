@@ -1,5 +1,5 @@
 #define COLUMNS 80
-#define LINE 60
+#define LINE 25
 #define RATIO 108H
 
 #define BYTES_FOR_EACH_ELEMENT 2
