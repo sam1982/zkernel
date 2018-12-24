@@ -42,7 +42,7 @@ void kprint_newline(void)
     kprint_newpage();
     char now[10];
     itoa(current_loc,now);
-    //kprint(now);
+    kprint(now);
     move_cursor();
 }
 
