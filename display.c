@@ -40,7 +40,7 @@ void kprint_newline(void)
     current_loc = current_loc + (line_size - current_loc % (line_size));
     kprintCmd();
     kprint_newpage();
-    var char now[10];
+    char now[10];
     itoa(current_loc,now);
     kprint_chars(now);
     move_cursor();
