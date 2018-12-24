@@ -38,11 +38,12 @@ void kprint_newline(void)
 {
     unsigned int line_size = BYTES_FOR_EACH_ELEMENT * COLUMNS_IN_LINE;
     current_loc = current_loc + (line_size - current_loc % (line_size));
-    kprintCmd();
     kprint_newpage();
+    kprintCmd();
+    //kprint_newpage();
     char now[10];
     itoa(current_loc,now);
-    kprint(now);
+    //kprint(now);
     move_cursor();
 }
 
@@ -52,8 +53,8 @@ void kprint_newpage(void){
     if (current_loc < screensize){
         return;
     }
-    while (current_loc < screensize-COLUMNS*2) {
-            vidptr[i] = vidptr[i+160];
+    while (i < screensize) {
+            vidptr[i] = vidptr[i+LINE*2];
             vidptr[i+1] = 0x07;
             i = i + 2;
     }
@@ -65,6 +66,7 @@ void kprint_newpage(void){
             vidptr[j+1] = 0x07;
             j = j + 2;
     }
+    current_loc = current_loc-COLUMNS*2
         //kprint("page");
 }
 
