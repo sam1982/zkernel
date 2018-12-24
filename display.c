@@ -30,7 +30,7 @@ void kprint_chars(const char string[]){
     int string_len = sizeof(string);
     int i;
     for (i=0;i<string_len;i++){
-        kprint(string_len[i]);
+        kprint(string[i]);
     }
 }
 
