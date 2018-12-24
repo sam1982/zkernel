@@ -54,7 +54,7 @@ void kprint_newpage(void){
         return;
     }
     while (i < screensize) {
-            vidptr[i] = vidptr[i+LINE*2];
+            vidptr[i] = vidptr[i+COLUMNS*2];
             vidptr[i+1] = 0x07;
             i = i + 2;
     }
