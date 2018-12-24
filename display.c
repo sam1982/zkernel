@@ -66,7 +66,7 @@ void kprint_newpage(void){
             vidptr[j+1] = 0x07;
             j = j + 2;
     }
-    current_loc = current_loc-COLUMNS*2
+    current_loc = current_loc-COLUMNS*2;
         //kprint("page");
 }
 
