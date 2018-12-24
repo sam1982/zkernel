@@ -11,6 +11,7 @@ void kprint_char(const char str)
 {
     vidptr[current_loc++] = str;
     vidptr[current_loc++] = 0x07;
+    kprint_newpage();
     move_cursor();
 }
 
@@ -21,8 +22,16 @@ void kprint(const char *str)
         vidptr[current_loc++] = str[i++];
         vidptr[current_loc++] = 0x07;
     }
-    kprint_newpage();
+    //kprint_newpage();
     move_cursor();
+}
+
+void kprint_char(const []char string){
+    int string_len = sizeof(string);
+    int i;
+    for (i=0;i<string_len;i++){
+        kprint(string_len[i]);
+    }
 }
 
 void kprint_newline(void)
@@ -37,7 +46,7 @@ void kprint_newline(void)
 void kprint_newpage(void){
     int screensize = COLUMNS * LINE * 2;
     int i =0;
-    if (current_loc > screensize){
+    if (current_loc > COLUMNS*2*5){
         for (i=0;i<screensize-COLUMNS*2;i++){
             vidptr[i] = vidptr[i+(COLUMNS*2)];
         }
