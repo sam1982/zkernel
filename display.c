@@ -39,10 +39,10 @@ void kprint_newline(void)
     unsigned int line_size = BYTES_FOR_EACH_ELEMENT * COLUMNS_IN_LINE;
     current_loc = current_loc + (line_size - current_loc % (line_size));
     kprintCmd();
-    kprint_newpage();
+    //kprint_newpage();
     char now[10];
     itoa(current_loc,now);
-    kprint_chars(now);
+    kprint(now);
     move_cursor();
 }
 
