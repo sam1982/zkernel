@@ -50,14 +50,14 @@ void kprint_newpage(void){
     int screensize = COLUMNS * LINE * 2;
     int i =0;
     if (current_loc < screensize){
-        return
+        return;
     }
     while (current_loc < screensize-COLUMNS*2) {
             vidptr[i] = vidptr[i+160];
             vidptr[i+1] = 0x07;
             i = i + 2;
     }
-    int j = screensize-COLUMNS*2
+    int j = screensize-COLUMNS*2;
     while (j < screensize) {
             /* blank character */
             vidptr[j] = ' ';
