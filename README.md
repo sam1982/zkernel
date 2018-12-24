@@ -27,17 +27,3 @@ So, rename the kernel:
 mv kernel kernel-701
 ```
 
-Copy it to your boot partition (assuming you are superuser):
-
-```
-cp kernel-701 /boot/kernel-701
-```
-
-Configure your grub/grub2 similar to what is given in `_grub_grub2_config` folder.
-
-Reboot.
-
-Voila!
-
-
-#### The next step ####
