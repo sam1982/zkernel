@@ -26,7 +26,7 @@ void kprint(const char *str)
     move_cursor();
 }
 
-void kprint_char(const char string[]){
+void kprint_chars(const char string[]){
     int string_len = sizeof(string);
     int i;
     for (i=0;i<string_len;i++){
